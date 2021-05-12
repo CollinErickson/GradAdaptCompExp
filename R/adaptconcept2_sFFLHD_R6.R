@@ -24,10 +24,21 @@ if (F) {
 #' adaptive experiment.
 #' @format \code{\link{R6Class}} object.
 #' @examples
-#' a <- adapt.concept2.sFFLHD.R6$new(D=2,L=3,func=gaussian1,obj="desirability",
-#'     des_func=des_func14, n0=12, take_until_maxpvar_below=.9,
-#'     package="GauPro", design='sFFLHD', selection_method="max_des_red")
-#' a$run(5)
+# a <- adapt.concept2.sFFLHD.R6$new(D=2,L=3,func=gaussian1,obj="desirability",
+#     des_func=des_func14, n0=12, take_until_maxpvar_below=.9,
+#     package="GauPro", design='sFFLHD', selection_method="max_des_red")
+# a$run(5)
+#' # wing weight, grad_norm2_mean, laGP_GauPro_kernel
+#' set.seed(1); a <- adapt.concept2.sFFLHD.R6$new(
+#'   D=10,L=5,func=TestFunctions::wingweight, nugget = 1e-7,estimate.nugget = TRUE,
+#'   obj="desirability", des_func=des_func_grad_norm2_mean,
+#'   actual_des_func=NULL,#get_num_actual_des_func_grad_norm2_mean(),
+#'   stage1batches=6, alpha_des=1, weight_const=0,
+#'   package="laGP_GauPro_kernel", design='sFFLHD_Lflex',
+#'   error_power=2,
+#'   selection_method="max_des_red_all_best"
+#' );
+#' a$run(2)
 #' @field X Design matrix
 #' @field Z Responses
 #' @field b batch size
@@ -1446,7 +1457,7 @@ adapt.concept2.sFFLHD.R6 <- R6::R6Class(
         err * weight_func_out
       } else if (length(error_power) == 1 && error_power == 2) {
         err^2 * weight_func_out
-      } else if (length(error_power) == 2 && error_power == c(1,2)) {
+      } else if (length(error_power) == 2 && all(error_power == c(1,2))) {
         list(err * weight_func_out,
              err^2 * weight_func_out)
       } else {stop("error_power not recognized in werror_func #825376")}

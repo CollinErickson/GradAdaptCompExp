@@ -1,3 +1,5 @@
 ^LICENSE\.md$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+scratch
+compare_adaptconcept_output

@@ -24,7 +24,13 @@ des_func_relmax <- function(mod, XX, return_se=F, N_add=1e3) {
   des
 }
 
-# A func that calculated the actual value of int (weight * |y-hat|) dx
+#' A func that calculated the actual value of int (weight * |y-hat|) dx
+#' @importFrom stats runif cor deriv dist ecdf pnorm setNames
+#' @param mod IGP model
+#' @param alpha Parameter to weight desirability
+#' @param f function that can be evaluted
+#' @param fmin Min value of function
+#' @param fmax Max value of function
 actual_intwerror_func_relmax <- function(mod, alpha, f, fmin, fmax) {#browser()
   D <- ncol(mod$X)
   N <- 1e5
@@ -67,7 +73,7 @@ actual_des_func_relmax_banana <- get_actual_des_func_relmax(f=banana, fmin=0, fm
 actual_des_func_relmax_borehole <- get_actual_des_func_relmax(f=borehole, fmin=0.001252, fmax=0.044450)
 
 
-
+#' @importFrom sFFLHD split_matrix
 werror_func_relmax <- function(mod, XX, alpha=1000, split_speed=T) {#browser()
   D <- ncol(mod$X)
   # split_speed gives 3x speedup for 300 pts, 14x for 3000 pts
@@ -467,6 +473,8 @@ actual_des_func_grad_norm2_mean_quad_peaks <- function(XX, mod) {
     sum(numDeriv::grad(quad_peaks, x) ^ 2)
   })
 }
+
+#' @export
 actual_des_func_grad_norm2_mean_branin <- function(XX, mod) {
   brd <- deriv(~ 1 * (bb - (5.1/(4*pi^2)) * aa^2 + (5/pi) * aa - 6)^2 + 10 * (1 - (1/(8*pi))) * cos(aa) + 10
                , namevec=c("aa", "bb"))
@@ -712,6 +720,8 @@ actual_des_func_grad_norm2_mean_borehole <- function(XX, mod) {
     sum((attr(eval(expr = bhd, envir = setNames(as.list(x * (scalediff) + scale_low), nameslist)), "gradient") * scalediff) ^ 2)
   })
 }
+
+#' @importFrom stats deriv
 actual_des_func_grad_norm2_mean_wingweight <- function(XX, mod) {
   wwd <- deriv(~ 0.036 * Sw^.758 * Wfw^.0035 * (A/cos(Lambda*pi/180)^2)^.6 * q^.006 * lambda^.04 * (100*tc/cos(Lambda*pi/180))^-.3 * (Nz*Wdg)^.49 + Sw*Wp,
                namevec=c("Sw", "Wfw", "A", "Lambda", "q", "lambda", "tc", "Nz", "Wdg", "Wp"))
@@ -730,6 +740,9 @@ get_num_actual_des_func_grad_norm2_mean <- function(funcforgrad) {
     })
   }
 }
+
+#' @export
+#' @importFrom graphics abline pairs
 test_des_func_grad_norm2_mean <- function(func, actual, d, n=1e3) {
   xx <- lhs::randomLHS(n=n, k=d)
   getfunc <- get_num_actual_des_func_grad_norm2_mean(func)
