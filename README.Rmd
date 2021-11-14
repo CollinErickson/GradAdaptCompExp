@@ -1,0 +1,56 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# GradAdaptCompExp
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of GradAdaptCompExp is to provide code for managing computer experiments.
+
+## Installation
+
+You can install the development version of GradAdaptCompExp from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("CollinErickson/GradAdaptCompExp")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(GradAdaptCompExp)
+## basic example code
+```
+
+
+```{r}
+# wing weight, grad_norm2_mean, laGP_GauPro_kernel
+set.seed(1); a <- adapt.concept2.sFFLHD.R6$new(
+  D=10,L=5,func=TestFunctions::wingweight, nugget = 1e-7,estimate.nugget = T,
+  obj="desirability", des_func=des_func_grad_norm2_mean,
+  actual_des_func=NULL,#get_num_actual_des_func_grad_norm2_mean(),
+  stage1batches=6, alpha_des=1, weight_const=0,
+  package="laGP_GauPro_kernel", design='sFFLHD_Lflex',
+  error_power=2,
+  selection_method="max_des_red_all_best"
+); 
+a$run(5, noplot = TRUE)
+a$plot1()
+```
+

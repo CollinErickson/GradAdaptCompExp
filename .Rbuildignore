@@ -3,3 +3,4 @@
 ^\.Rproj\.user$
 scratch
 compare_adaptconcept_output
+^README\.Rmd$
