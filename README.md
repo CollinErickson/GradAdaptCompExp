@@ -9,6 +9,10 @@
 The goal of GradAdaptCompExp is to provide code for managing computer
 experiments.
 
+This code was from my (Collin Erickson) PhD work for the paper
+[Gradient-based criteria for sequential experiment
+design](https://onlinelibrary.wiley.com/doi/10.1002/qre.2981).
+
 ## Installation
 
 You can install the development version of GradAdaptCompExp from
@@ -46,17 +50,17 @@ set.seed(1); a <- adapt.concept2.sFFLHD.R6$new(
 #> no suitable  orthogonal  array found
 #> sFFLHD_Lflex requested L=5, but using L=11
 a$run(5, noplot = TRUE)
-#> Starting iteration 1 at 2021-11-13 21:54:19 
+#> Starting iteration 1 at 2021-11-24 08:19:34 
 #> no suitable  resolution IV or more  array found
 #> Warning in DoE.base::oa.design(nruns = L^2, nfactors = D + 1, nlevels = L, :
 #> resources were not sufficient for optimizing column selection
-#> Starting iteration 2 at 2021-11-13 21:54:22 
+#> Starting iteration 2 at 2021-11-24 08:19:36 
 #> stage1batch adding
-#> Starting iteration 3 at 2021-11-13 21:54:25 
+#> Starting iteration 3 at 2021-11-24 08:19:39 
 #> stage1batch adding
-#> Starting iteration 4 at 2021-11-13 21:54:28 
+#> Starting iteration 4 at 2021-11-24 08:19:42 
 #> stage1batch adding
-#> Starting iteration 5 at 2021-11-13 21:54:32 
+#> Starting iteration 5 at 2021-11-24 08:19:45 
 #> stage1batch adding
 a$plot1()
 ```

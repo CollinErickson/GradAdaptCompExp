@@ -20,6 +20,9 @@ knitr::opts_chunk$set(
 
 The goal of GradAdaptCompExp is to provide code for managing computer experiments.
 
+This code was from my (Collin Erickson) PhD work for the paper
+[Gradient-based criteria for sequential experiment design](https://onlinelibrary.wiley.com/doi/10.1002/qre.2981).
+
 ## Installation
 
 You can install the development version of GradAdaptCompExp from [GitHub](https://github.com/) with:

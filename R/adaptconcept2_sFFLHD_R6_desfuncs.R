@@ -339,8 +339,10 @@ des_func_plateau <- function(mod, XX, return_se=F, N_add=1e2) {
 }
 
 
-# Test desirability functions
-# A des func for finding large gradient
+#' Test desirability functions
+#' A des func for finding large gradient
+#' @param mod GauPro model
+#' @param XX Points to evaluate at
 #' @param return_se whether the se prediction should be returned along with
 #'   the des, all will be returned in data.frame, this will save
 #'   time if calculating the werror function since it is faster
@@ -451,6 +453,7 @@ actual_des_func_grad_norm2_mean_logistic15 <- function(XX, mod) {
     (15 * (f1*(1-f1))) ^ 2
   })
 }
+#' @importFrom TestFunctions banana_grad
 actual_des_func_grad_norm2_mean_banana <- function(XX, mod) {
   apply(XX, 1, function(x) {
     sum(banana_grad(x) ^ 2)
@@ -474,7 +477,10 @@ actual_des_func_grad_norm2_mean_quad_peaks <- function(XX, mod) {
   })
 }
 
+#' Actual desirability function for the Branin function
 #' @export
+#' @param XX Points to evaluate at
+#' @param mod GP model, not actually used
 actual_des_func_grad_norm2_mean_branin <- function(XX, mod) {
   brd <- deriv(~ 1 * (bb - (5.1/(4*pi^2)) * aa^2 + (5/pi) * aa - 6)^2 + 10 * (1 - (1/(8*pi))) * cos(aa) + 10
                , namevec=c("aa", "bb"))
@@ -741,6 +747,14 @@ get_num_actual_des_func_grad_norm2_mean <- function(funcforgrad) {
   }
 }
 
+#' test_des_func_grad_norm2_mean
+#'
+#' Evaluate a function compared to the actual
+#' using the gradient norm squared of the mean
+#' @param func Function
+#' @param actual Actual function
+#' @param d Number of dimensions
+#' @param n Number of points
 #' @export
 #' @importFrom graphics abline pairs
 test_des_func_grad_norm2_mean <- function(func, actual, d, n=1e3) {
