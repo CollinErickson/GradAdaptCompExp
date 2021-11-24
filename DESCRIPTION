@@ -8,8 +8,8 @@ Authors@R:
            email = "collinberickson@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
-Imports: IGP, R6, ContourFunctions, sFFLHD, TestFunctions
-Suggests: Deriv, data.table, lhs, numDeriv, laGP, GauPro
+Imports: IGP, R6, ContourFunctions, sFFLHD
+Suggests: Deriv, data.table, lhs, numDeriv, TestFunctions, laGP, GauPro
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
