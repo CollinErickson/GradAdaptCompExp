@@ -35,7 +35,8 @@ model, adding new data if given, then running optimization again.}
 
 \examples{
 # wing weight, grad_norm2_mean, laGP_GauPro_kernel
-set.seed(1); a <- adapt.concept2.sFFLHD.R6$new(
+set.seed(1)
+a <- adapt.concept2.sFFLHD.R6$new(
   D=10,L=5,func=TestFunctions::wingweight, nugget = 1e-7,estimate.nugget = TRUE,
   obj="desirability", des_func=des_func_grad_norm2_mean,
   actual_des_func=NULL,#get_num_actual_des_func_grad_norm2_mean(),
@@ -121,7 +122,8 @@ selected.}
 the maximum variance of the GP model, then it will take
 space-filling points.}
 
-\item{\code{package}}{Which GP package should be used by IGP.}
+\item{\code{package}}{Which GP package should be used by IGP. You should stick
+with "laGP_GauPro_kernel", but could also use "laGP".}
 
 \item{\code{force_old}}{A number saying how often the oldest candidate points
 should be forced into the design.}
@@ -209,7 +211,7 @@ minimal, 1 is medium, 2 is a lot.}
   D,
   L,
   b = NULL,
-  package = NULL,
+  package = "laGP_GauPro_kernel",
   obj = NULL,
   n0 = 0,
   stage1batches = NULL,
@@ -235,7 +237,7 @@ minimal, 1 is medium, 2 is a lot.}
   verbose = 1,
   design_seed = numeric(0),
   weight_const = 0,
-  error_power = 1,
+  error_power = 2,
   nconsider = Inf,
   nconsider_random = 0,
   ...

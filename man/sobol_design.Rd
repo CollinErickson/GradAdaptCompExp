@@ -32,6 +32,13 @@ separate concurrent Sobol sequences.
 \if{html}{\out{<div class="r">}}\preformatted{sobol_design$get.batch(L = self$L)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{L}}{Number of points to get}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

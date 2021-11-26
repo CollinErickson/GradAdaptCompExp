@@ -24,12 +24,14 @@ if (F) {
 #' adaptive experiment.
 #' @format \code{\link{R6Class}} object.
 #' @examples
+# set.seed(0)
 # a <- adapt.concept2.sFFLHD.R6$new(D=2,L=3,func=gaussian1,obj="desirability",
 #     des_func=des_func14, n0=12, take_until_maxpvar_below=.9,
 #     package="GauPro", design='sFFLHD', selection_method="max_des_red")
 # a$run(5)
 #' # wing weight, grad_norm2_mean, laGP_GauPro_kernel
-#' set.seed(1); a <- adapt.concept2.sFFLHD.R6$new(
+#' set.seed(1)
+#' a <- adapt.concept2.sFFLHD.R6$new(
 #'   D=10,L=5,func=TestFunctions::wingweight, nugget = 1e-7,estimate.nugget = TRUE,
 #'   obj="desirability", des_func=des_func_grad_norm2_mean,
 #'   actual_des_func=NULL,#get_num_actual_des_func_grad_norm2_mean(),
@@ -74,7 +76,8 @@ if (F) {
 #' @field take_until_maxpvar_below A number, if the proportion of points near
 #'          the maximum variance of the GP model, then it will take
 #'          space-filling points.
-#' @field package Which GP package should be used by IGP.
+#' @field package Which GP package should be used by IGP. You should stick
+#' with "laGP_GauPro_kernel", but could also use "laGP".
 #' @field force_old A number saying how often the oldest candidate points
 #'          should be forced into the design.
 #' @field force_pvar A number saying how often the points with the highest
@@ -171,7 +174,9 @@ adapt.concept2.sFFLHD.R6 <- R6::R6Class(
     #   own variable
     verbose = NULL, # 0 prints only essential, 2 prints a lot
 
-    initialize = function(D,L,b=NULL, package=NULL, obj=NULL,
+    initialize = function(D,L,b=NULL,
+                          package="laGP_GauPro_kernel",
+                          obj=NULL,
                           n0=0, stage1batches=NULL,
                           force_old=0, force_pvar=0,
                           useSMEDtheta=F,
@@ -186,7 +191,7 @@ adapt.concept2.sFFLHD.R6 <- R6::R6Class(
                           verbose = 1,
                           design_seed=numeric(0),
                           weight_const=0,
-                          error_power=1,
+                          error_power=2,
                           nconsider=Inf, nconsider_random=0,
                           ...) {
       self$iteration <- 1
@@ -294,7 +299,7 @@ adapt.concept2.sFFLHD.R6 <- R6::R6Class(
         self$des_func <- des_func
         # obj_func is used by SMED, give it the weight function
         self$obj_func <- function(XX) {self$weight_func(mod=self$mod, XX=XX)}
-        if (missing(alpha_des)) {stop("alpha_des must be given in")}
+        # if (missing(alpha_des)) {stop("alpha_des must be given in")}
         self$alpha_des <- alpha_des
         if (is.character(self$des_func)) {
           if (grepl(pattern="\\(", x=self$des_func)) { # If parentheses, then

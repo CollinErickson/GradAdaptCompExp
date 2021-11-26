@@ -1,5 +1,9 @@
-# Test desirability functions
-# A des func where output is scaled 0 to 1, max higher
+#' Test desirability functions
+#'
+#' A des func where output is scaled 0 to 1, max higher
+#' @param mod GP model
+#' @param XX Points to evaluate at
+#' @param N_add Number of points to add
 #' @param return_se whether the se prediction should be returned along with
 #'   the des, all will be returned in data.frame, this will save
 #'   time if calculating the werror function since it is faster
@@ -131,15 +135,21 @@ werror_func14 <- function(mod, XX, split_speed=T) {#browser()
 
 
 
-# Test desirability functions
-# A des func where output is scaled 0 to 1, max higher
+#' Test desirability functions
+#'
+#' A des func where output is scaled 0 to 1, max higher
 #' @param threshold Scalar in [0,1) thresholding how big the quantile should be.
 #' @param power The power the quantiles will be raised to after thresholding.
+#' @param mod GP model
+#' @param XX Points to evaluate at
+#' @param N_add Number of points to add
 #' @param return_se whether the se prediction should be returned along with
 #'   the des, all will be returned in data.frame, this will save
 #'   time if calculating the werror function since it is faster
 #'   to predict both at once instead of separately
-des_func_quantile <- function(mod, XX, threshold=0, power=1, return_se=F, N_add=1e3, threshold_jump=0) {
+#' @param threshold_jump Parameter, leave as 0
+des_func_quantile <- function(mod, XX, threshold=0, power=1, return_se=F,
+                              N_add=1e3, threshold_jump=0) {
   D <- if (is.matrix(XX)) ncol(XX) else length(XX)
   pred <- mod$predict(XX, se=return_se)
   pred2 <- mod$predict(matrix(runif(N_add*D), ncol=D), se=return_se)
@@ -272,8 +282,12 @@ des_func_quantile_lowhigh <- function(mod, XX, threshold=c(.5, .5), power=1, ret
 
 
 
-# Test desirability functions
-# A des func where output is scaled 0 to 1, max higher
+#' Test desirability functions
+#'
+#' A des func where output is scaled 0 to 1, max higher.
+#' @param mod GP model
+#' @param XX Points to evaluate at
+#' @param N_add Number of points to add
 #' @param return_se whether the se prediction should be returned along with
 #'   the des, all will be returned in data.frame, this will save
 #'   time if calculating the werror function since it is faster
@@ -299,8 +313,13 @@ des_func_relmaxgrad <- function(mod, XX, return_se=F, N_add=1e3) {
   des
 }
 
-# Test desirability functions
-# A des func for finding plateau
+#' Test desirability functions
+#'
+#' A des func for finding plateau
+#'
+#' @param mod GP model
+#' @param XX Points to evaluate at
+#' @param N_add Number of points to add
 #' @param return_se whether the se prediction should be returned along with
 #'   the des, all will be returned in data.frame, this will save
 #'   time if calculating the werror function since it is faster
